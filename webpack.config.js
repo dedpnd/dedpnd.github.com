@@ -3,7 +3,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
     mode: 'none',
-    entry: './src/*.ts',
+    entry: './src/main.ts',
     output: {
         filename: "[name].bundle.js",
         path: path.resolve(__dirname, 'dist')
@@ -14,12 +14,13 @@ module.exports = {
     },
     module: {
         rules: [
-            { test: /\.ts$/, loader: "ts-loader" }
+            { test: /\.ts$/, loader: "ts-loader" },
+            { test: /\.css$/, use: ['style-loader', 'css-loader'] }
         ]
     },
     plugins: [
         new HtmlWebpackPlugin({
-            template: "./src/index.html"
+            template: "index.html"
         })
     ]
 }

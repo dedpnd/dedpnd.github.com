@@ -3,12 +3,12 @@
       "class-name": true,
       "no-console": [
         true,
-        "log",
-        "debug",
-        "info",
-        "time",
-        "timeEnd",
-        "trace"
+        // "log",
+        // "debug",
+        // "info",
+        // "time",
+        // "timeEnd",
+        // "trace"
       ],
       "no-debugger": true,
       "no-arg": true,
@@ -155,7 +155,7 @@
           "variable-declaration": "nospace"
         }
       ],
-  
+
       "class-name": true,
       "no-console": [
         true,
