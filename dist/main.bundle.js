@@ -96,10 +96,14 @@ __webpack_require__(5);
 __webpack_require__(10);
 var rxjs_1 = __webpack_require__(12);
 var operators_1 = __webpack_require__(110);
-var searchInput = document.querySelector('#searchRep__input');
-var seqSearchInput$ = rxjs_1.fromEvent(searchInput, 'keyup');
 var getRepositories = function (query) {
-    return fetch("https://api.github.com/search/repositories?q=" + query).then(function (res) { return res.json(); });
+    return fetch("https://api.github.com/search/repositories?q=" + query)
+        .then(function (res) {
+        if (!res.ok) {
+            throw res;
+        }
+        return res.json();
+    });
 };
 var renderList = function (items) {
     var mainContent = document.querySelector('#mainContent');
@@ -118,7 +122,19 @@ var renderList = function (items) {
     mainContent.innerHTML = '';
     mainContent.append(content);
 };
-seqSearchInput$.pipe(operators_1.map(function (e) { return e.currentTarget.value; }), operators_1.debounceTime(500), operators_1.mergeMap(function (val) { return getRepositories(val); })).subscribe(function (val) {
+var renderError = function (err) {
+    var mainContent = document.querySelector('#mainContent');
+    mainContent.innerHTML = "\n  <span style=\"color:red\">\n    " + err + "\n  </span>\n  ";
+};
+var searchInput = document.querySelector('#searchRep__input');
+var seqSearchInput$ = rxjs_1.fromEvent(searchInput, 'keyup');
+seqSearchInput$.pipe(operators_1.map(function (e) { return e.currentTarget.value; }), operators_1.debounceTime(500), operators_1.mergeMap(function (val) { return getRepositories(val); }), operators_1.catchError(function (err, obs) {
+    console.log('Error', err);
+    if (err.status) {
+        renderError(err.status + ": " + err.statusText);
+    }
+    return obs;
+})).subscribe(function (val) {
     renderList(val.items);
 });
 
