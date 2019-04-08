@@ -16,7 +16,7 @@ export class AppComponent {
 
   public socialInfo: IsocialInfo = {
     title: '-',
-    img: '../assets/images/b1.jpg',
+    img: 'assets/images/b1.jpg',
     followers: 0,
     following: 0
   };

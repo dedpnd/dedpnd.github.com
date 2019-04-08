@@ -13,7 +13,7 @@ export class MainWidgetComponent implements OnInit {
 
   public info$: Observable<Iinfo[]> = info$;
   public searchText = '';
-  public backgroundImage = '../assets/images/1.jpg';
+  public backgroundImage = 'assets/images/1.jpg';
 
   constructor() { }
 
