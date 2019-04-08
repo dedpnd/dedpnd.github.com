@@ -1,0 +1,39 @@
+<div class="element-bg-img"><img [src]="backgroundImage" alt="" class="img-responsive"> </div>
+<div class="element-left-bottom">
+  <div class="ele-strip">
+    <ul>
+      <li><a href="#" (click)=setSearchText($event)>type1</a></li>
+      <li><a href="#" (click)=setSearchText($event)>type2</a></li>
+      <li><a href="#" (click)=setSearchText($event)>type3</a></li>
+    </ul>
+  </div>
+  <div class="village">
+    <h3>Righteous indignation & like</h3>
+    <span class="line"> </span>
+    <div class="activity_box">
+      <div class="scrollbar" id="style-2">
+        <ng-container *ngFor="let info of info$ | async | infoFilter:searchText; let l = count">
+          <div class="activity-row">
+            <div class="activity-desc">
+              <h5>{{info.type}}</h5>
+              <p>{{info.address}}</p>
+              <h6>Tel:{{info.phone}}</h6>
+            </div>
+            <div class="activity-img">
+              <ul>
+                <li><img [src]="info.img" alt="" /></li>
+                <li><img [src]="info.social_info.img" alt="" /></li>
+              </ul>
+            </div>
+            <div class="clear"> </div>
+          </div>
+          <!-- грязный хак -->
+          <ng-container *ngIf="searchText">
+            {{setBackgroundImage(info.img)}}
+            {{_setNewInfo(info.weather,info.social_info)}}
+          </ng-container>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>
