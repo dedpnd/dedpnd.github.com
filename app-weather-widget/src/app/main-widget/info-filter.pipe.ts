@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Iinfo } from './mock/info';
+import { Iinfo } from '../mock/info';
 
 @Pipe({
   name: 'infoFilter'

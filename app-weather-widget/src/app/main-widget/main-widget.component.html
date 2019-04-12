@@ -12,8 +12,10 @@
     <span class="line"> </span>
     <div class="activity_box">
       <div class="scrollbar" id="style-2">
-        <ng-container *ngFor="let info of info$ | async | infoFilter:searchText; let l = count">
-          <div class="activity-row">
+        <ng-container
+          *ngFor="let info of info$ | async | infoFilter:searchText; let l = count"
+        >
+          <div class="activity-row" (click)="setBackgroundImage(info.img);_setNewInfo(info.weather,info.social_info)" >
             <div class="activity-desc">
               <h5>{{info.type}}</h5>
               <p>{{info.address}}</p>
@@ -27,11 +29,6 @@
             </div>
             <div class="clear"> </div>
           </div>
-          <!-- грязный хак -->
-          <ng-container *ngIf="searchText">
-            {{setBackgroundImage(info.img)}}
-            {{_setNewInfo(info.weather,info.social_info)}}
-          </ng-container>
         </ng-container>
       </div>
     </div>

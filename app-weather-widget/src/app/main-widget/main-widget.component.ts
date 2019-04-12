@@ -2,6 +2,11 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { info$, Iinfo, Iweather, IsocialInfo } from '../mock/info';
 import { Observable } from 'rxjs/internal/Observable';
 
+interface IoutputObj {
+  weather: Iweather;
+  socialInfo: IsocialInfo;
+}
+
 @Component({
   selector: 'app-main-widget',
   templateUrl: './main-widget.component.html',
@@ -9,7 +14,7 @@ import { Observable } from 'rxjs/internal/Observable';
 })
 export class MainWidgetComponent implements OnInit {
 
-  @Output() setNewInfo = new EventEmitter();
+  @Output() setNewInfo = new EventEmitter<IoutputObj>();
 
   public info$: Observable<Iinfo[]> = info$;
   public searchText = '';
