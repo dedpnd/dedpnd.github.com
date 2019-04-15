@@ -1,6 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { info$, Iinfo, Iweather, IsocialInfo } from '../mock/info';
+import { Iinfo, Iweather, IsocialInfo } from '../mock/info';
 import { Observable } from 'rxjs/internal/Observable';
+import { InfoService } from '../info.service';
 
 interface IoutputObj {
   weather: Iweather;
@@ -14,30 +15,25 @@ interface IoutputObj {
 })
 export class MainWidgetComponent implements OnInit {
 
-  @Output() setNewInfo = new EventEmitter<IoutputObj>();
-
-  public info$: Observable<Iinfo[]> = info$;
+  public info$: Observable<Iinfo[]>;
   public searchText = '';
   public backgroundImage = 'assets/images/1.jpg';
 
-  constructor() { }
+  constructor(private infoService: InfoService) { }
 
   ngOnInit() {
+    this.info$ = this.infoService.getAllInfo();
+    this.infoService.getInfo().subscribe((v) => {
+      this.backgroundImage = v.img;
+    });
   }
 
   public setSearchText(e: Event) {
     this.searchText = (e.target as HTMLElement).textContent;
   }
 
-  public setBackgroundImage(img: string) {
-    this.backgroundImage = img;
-  }
-
   // tslint:disable-next-line:variable-name
-  public _setNewInfo(_weather: Iweather, _social_info: IsocialInfo) {
-    this.setNewInfo.emit({
-      weather: _weather,
-      socialInfo: _social_info
-    });
+  public _setNewInfo(info: Iinfo) {
+    this.infoService.setInfo(info);
   }
 }

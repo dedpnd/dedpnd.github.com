@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { IsocialInfo } from '../mock/info';
+import { IsocialInfo, Iinfo } from '../mock/info';
+import { InfoService } from '../info.service';
 
 @Component({
   selector: 'app-teddy-bear',
@@ -8,12 +9,19 @@ import { IsocialInfo } from '../mock/info';
 })
 export class TeddyBearComponent implements OnInit {
 
-  @Input()
-  public socialInfo: IsocialInfo;
+  public socialInfo: IsocialInfo = {
+    title: '-',
+    img: 'assets/images/b1.jpg',
+    followers: 0,
+    following: 0
+  };
 
-  constructor() { }
+  constructor( private infoService: InfoService) { }
 
   ngOnInit() {
+    this.infoService.getInfo().subscribe((v: Iinfo) => {
+      this.socialInfo = v.social_info;
+    });
   }
 
 }

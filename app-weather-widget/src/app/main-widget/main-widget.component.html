@@ -2,9 +2,9 @@
 <div class="element-left-bottom">
   <div class="ele-strip">
     <ul>
-      <li><a href="#" (click)=setSearchText($event)>type1</a></li>
-      <li><a href="#" (click)=setSearchText($event)>type2</a></li>
-      <li><a href="#" (click)=setSearchText($event)>type3</a></li>
+      <li *ngFor="let info of info$ | async">
+        <a href="#" (click)=setSearchText($event)>{{info.type}}</a>
+      </li>
     </ul>
   </div>
   <div class="village">
@@ -15,7 +15,7 @@
         <ng-container
           *ngFor="let info of info$ | async | infoFilter:searchText; let l = count"
         >
-          <div class="activity-row" (click)="setBackgroundImage(info.img);_setNewInfo(info.weather,info.social_info)" >
+          <div class="activity-row" (click)="_setNewInfo(info)" >
             <div class="activity-desc">
               <h5>{{info.type}}</h5>
               <p>{{info.address}}</p>

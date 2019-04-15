@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Iweather } from '../mock/info';
+import { Iweather, Iinfo } from '../mock/info';
+import { InfoService } from '../info.service';
 
 @Component({
   selector: 'app-temp-widget',
@@ -8,12 +9,19 @@ import { Iweather } from '../mock/info';
 })
 export class TempWidgetComponent implements OnInit {
 
-  @Input()
-  public weather: Iweather;
+  public weather: Iweather = {
+    title: '-',
+    icon: 'cloud',
+    water: 0,
+    temperature: 0
+  };
 
-  constructor() { }
+  constructor( private infoService: InfoService) { }
 
   ngOnInit() {
+    this.infoService.getInfo().subscribe((v: Iinfo) => {
+      this.weather = v.weather;
+    });
   }
 
 }
