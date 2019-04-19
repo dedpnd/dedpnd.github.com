@@ -1,0 +1,41 @@
+<div id="signup">
+  <h1>Sign Up for Free</h1>
+  <form [formGroup]="signUpGroup">
+    <div class="top-row">
+      <div class="field-wrap">
+        <label>
+          First Name<span class="req">*</span>
+        </label>
+        <input type="text" formControlName="firstName" #firstName required autocomplete="off" />
+        <ng-container
+          *ngIf="signUpGroup.controls.firstName.invalid && (signUpGroup.controls.firstName.dirty || signUpGroup.controls.firstName.touched)">
+          <span style="color:red; display: block" *ngIf="signUpGroup.controls.firstName.errors.required">
+            Поле обязательное!
+          </span>
+          <span style="color:red; display: block" *ngIf="signUpGroup.controls.firstName.errors?.error_length">
+            {{signUpGroup.controls.firstName.errors.error_length}}
+          </span>
+        </ng-container>
+      </div>
+      <div class="field-wrap">
+        <label>
+          Last Name<span class="req">*</span>
+        </label>
+        <input type="text" formControlName="lastName" required autocomplete="off" />
+      </div>
+    </div>
+    <div class="field-wrap">
+      <label>
+        Email Address<span class="req">*</span>
+      </label>
+      <input type="email" formControlName="email" required autocomplete="off" />
+    </div>
+    <div class="field-wrap">
+      <label>
+        Set A Password<span class="req">*</span>
+      </label>
+      <input type="password" formControlName="password" required autocomplete="off" />
+    </div>
+    <button type="submit" [disabled]="!signUpGroup.valid" class="button button-block">Get Started</button>
+  </form>
+</div>
